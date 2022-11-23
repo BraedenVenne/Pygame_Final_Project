@@ -1,44 +1,45 @@
 import pygame
-from sys import exit
-from player import Player
+from  screens import StartScreen, GameScreen
 
 
+class Game:
+    """Main class for the application"""
 
-SCREEN_WIDTH = 400
-SCREEN_HEIGHT = 600
-homer = Player(SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150)
+    def __init__(self):
+        # Creates the window
+        self.window = pygame.display.set_mode((400, 600))
 
-def main():
-    pygame.init()
-    # Create sceen and set size
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    # Set the name of the window
-    pygame.display.set_caption('Jump Man')
+    def run(self):
+        """Main method, manages interaction between screens"""
 
-    clock = pygame.time.Clock()
+        # These are the available screens
+        screens = {
+            "start": StartScreen,
+            "game": GameScreen
+        }
 
-    # load image of sky
-    sky_surf = pygame.image.load('images/sky.png')
+        # Start the loop
+        running = True
+        current_screen = "start"
+        while running:
+            # Obtain the screen class
+            screen_class = screens.get(current_screen)
+            if not screen_class:
+                raise RuntimeError(f"Screen {current_screen} not found!")
 
-    running = True
-    while running:
-        for event in pygame.event.get():
-            
-            # close the game
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                exit()
-        screen.blit(sky_surf, (0,0))
+            # Create a new screen object, "connected" to the window
+            screen = screen_class(self.window)
 
-        # Draw player
-        homer.draw(screen)
+            # Run the screen
+            screen.run()
 
-        # update display window
-        pygame.display.update()
+            # When the `run` method stops, we should have a `next_screen` setup
+            if screen.next_screen is False:
+                running = False
+            # Switch to the next screen
+            current_screen = screen.next_screen
 
 
-        # run game at a maximum of 60fps
-        clock.tick(60)
-
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    jump_man = Game()
+    jump_man.run()
