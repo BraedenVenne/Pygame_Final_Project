@@ -12,5 +12,5 @@ while True:
             pygame.quit()
             exit()
             
-    # display screen and add elements to screen
+    # display screen and add elements to the screen
     pygame.display.update()
