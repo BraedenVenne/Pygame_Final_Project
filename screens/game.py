@@ -10,7 +10,7 @@ class GameScreen(BaseScreen):
         self.player = Player(SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150)
 
     def update(self):
-        self.player.key_input()
+        self.player.movement()
         
 
     def draw(self):
