@@ -1,6 +1,6 @@
 import pygame
 from  screens import StartScreen, GameScreen
-from components.globals import SCREEN_WIDTH, SCREEN_HEIGHT
+from components import SCREEN_WIDTH, SCREEN_HEIGHT
 
 class Game:
     """Main class for the application"""
@@ -32,7 +32,6 @@ class Game:
 
             # Run the screen
             screen.run()
-
             # When the `run` method stops, we should have a `next_screen` setup
             if screen.next_screen is False:
                 running = False
