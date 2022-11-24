@@ -1,13 +1,13 @@
 import pygame
 from  screens import StartScreen, GameScreen
-
+from components.globals import SCREEN_WIDTH, SCREEN_HEIGHT
 
 class Game:
     """Main class for the application"""
 
     def __init__(self):
         # Creates the window
-        self.window = pygame.display.set_mode((400, 600))
+        self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
     def run(self):
         """Main method, manages interaction between screens"""
@@ -15,7 +15,7 @@ class Game:
         # These are the available screens
         screens = {
             "start": StartScreen,
-            "game": GameScreen
+            "game": GameScreen,
         }
 
         # Start the loop
