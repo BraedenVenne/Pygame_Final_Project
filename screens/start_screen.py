@@ -21,7 +21,6 @@ class StartScreen(BaseScreen):
         # display and center the donut.png on the screen
         self.window.blit(self.donut, self.donut.get_rect(center=(200,200)))
 
-
         self.button.rect.x = 100
         self.button.rect.y = 400
         self.sprites.draw(self.window)
@@ -31,6 +30,8 @@ class StartScreen(BaseScreen):
 
     def manage_event(self, event):
         print(event)
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-            self.next_screen = "game"
-            self.running = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                self.next_screen = "game"
+                self.running = False
+
