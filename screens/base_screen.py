@@ -32,6 +32,8 @@ class BaseScreen:
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                     self.running = False
                     self.next_screen = False
+
+                self.manage_event(event)
                     
     @property
     def rect(self):
