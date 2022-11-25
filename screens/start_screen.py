@@ -10,8 +10,8 @@ class StartScreen(BaseScreen):
         self.donut = pygame.image.load('images/donut.png')
         self.donut = pygame.transform.rotozoom(self.donut, 0, 0.5)
         # menu buttons 
-        self.start_button = pygame.image.load('images/start_button.png')
-        self.quit_button = pygame.image.load('images/quit_button.png')
+        self.start_button = pygame.image.load('images/buttons/start_button.png')
+        self.quit_button = pygame.image.load('images/buttons/quit_button.png')
         # scale the buttons
         self.start_button = pygame.transform.rotozoom(self.start_button, 0, 0.5)
         self.quit_button = pygame.transform.rotozoom(self.quit_button, 0, 0.5)
@@ -57,5 +57,3 @@ class StartScreen(BaseScreen):
             if self.quit_button_rect.collidepoint(event.pos):
                 pygame.quit()
                 exit()
-
-
