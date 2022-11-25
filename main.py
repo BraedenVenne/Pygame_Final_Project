@@ -1,13 +1,13 @@
 import pygame
 from  screens import StartScreen, GameScreen
-from components import SCREEN_WIDTH, SCREEN_HEIGHT
+from components import MAX_WIDTH, MAX_HEIGHT
 
 class Game:
     """Main class for the application"""
 
     def __init__(self):
         # Creates the window
-        self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+        self.window = pygame.display.set_mode((MAX_WIDTH, MAX_HEIGHT))
 
     def run(self):
         """Main method, manages interaction between screens"""
@@ -40,5 +40,5 @@ class Game:
 
 
 if __name__ == "__main__":
-    jump_man = Game()
-    jump_man.run()
+    donut_jump = Game()
+    donut_jump.run()
