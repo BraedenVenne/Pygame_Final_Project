@@ -1,5 +1,6 @@
 import pygame
 from components import MAX_WIDTH
+from .projectiles import Projectile
 
 class Balloon(pygame.sprite.Sprite):
     def __init__(self, x, y):
@@ -12,23 +13,22 @@ class Balloon(pygame.sprite.Sprite):
         self.x = 1
         self.flip = False
 
+
+
+    # def shoot_projectile(self):
+    #     self.projectile.rect.center = self.rect.center
+
+
     def movement(self):
         # make the balloon automatically move to the right or left
         self.rect.x += self.x
 
         # if the balloon reaches the edge of the screen, change direction and flip the image
-        
-        if self.rect.right >= MAX_WIDTH or self.rect.left <= 0:
+        if self.rect.left >= 300 or self.rect.right <= 100:
             self.x *= -1
             self.flip = not self.flip
         
-    
-    def boundary(self):
-        if self.rect.right + self.x >= MAX_WIDTH:
-            self.x = MAX_WIDTH - self.rect.right
-        elif self.rect.left + self.x <= 0:
-            self.x = -self.rect.left
-    
     def update(self, window):
-        self.boundary()
         window.blit(pygame.transform.flip(self.image, self.flip, False), self.rect)
+        # self.projectiles.update(window)
+        
