@@ -1,5 +1,5 @@
 import pygame
-from screens.base_screen import BaseScreen
+from screens import BaseScreen
 from components import TextBox
 from sys import exit
 
@@ -35,7 +35,6 @@ class StartScreen(BaseScreen):
         # display the start and quit buttons on the center bottom of the screen
         self.window.blit(self.start_button, self.start_button_rect)
         self.window.blit(self.quit_button, self.quit_button_rect)
-
 
         # self.button.rect.x = 100
         # self.button.rect.y = 400
