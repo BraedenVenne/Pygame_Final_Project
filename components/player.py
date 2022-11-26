@@ -28,17 +28,17 @@ class Player(pygame.sprite.Sprite):
         keys = pygame.key.get_pressed()
         
         if keys[pygame.K_a]:
-            x = -10
+            x = -7
             self.flip = True
         if keys[pygame.K_d]:
-            x = 10
+            x = 7
             self.flip = False
         
         if self.jump == False and keys[pygame.K_SPACE]:
             self.jump = True
             
         if self.jump == True:
-            y -= self.vel_y*4
+            y -= self.vel_y*2.5
             self.vel_y -= self.gravity
             self.homer = pygame.image.load('images/homer/homer_jump.png').convert_alpha()
             if self.vel_y < -20:
