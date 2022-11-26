@@ -8,8 +8,8 @@ class Game:
     def __init__(self):
         # Creates the window
         self.window = pygame.display.set_mode((MAX_WIDTH, MAX_HEIGHT))
-
     def run(self):
+        pygame.mixer.init()
         """Main method, manages interaction between screens"""
 
         # These are the available screens
@@ -37,7 +37,6 @@ class Game:
                 running = False
             # Switch to the next screen
             current_screen = screen.next_screen
-
 
 if __name__ == "__main__":
     donut_jump = Game()
