@@ -1,5 +1,5 @@
 import pygame
-from  screens import StartScreen, GameScreen
+from  screens import StartScreen, GameScreen, GameOver
 from components import MAX_WIDTH, MAX_HEIGHT
 
 class Game:
@@ -16,6 +16,7 @@ class Game:
         screens = {
             "start": StartScreen,
             "game": GameScreen,
+            "game_over": GameOver,
         }
 
         # Start the loop
