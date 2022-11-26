@@ -63,10 +63,11 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += y
 
     def boundary(self):
-        if self.rect.left > MAX_WIDTH:
-            self.rect.left = -50
-        elif self.rect.right < 0:
-            self.rect.right = MAX_WIDTH + 50
+    # set boundaries so player cant walk off screen
+        if self.rect.left <= 0:
+            self.rect.left = 0
+        if self.rect.right >= MAX_WIDTH:
+            self.rect.right = MAX_WIDTH
         
     def update(self, window):
         self.boundary()
