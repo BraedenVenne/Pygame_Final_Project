@@ -6,7 +6,7 @@ from components import Player, MAX_WIDTH, MAX_HEIGHT, Balloon, Projectile
 class GameScreen(BaseScreen):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.sky_surf = pygame.image.load('images/sky.png')
+        self.sky_surf = pygame.image.load('images/background.png')
         self.player = Player(MAX_WIDTH / 2, MAX_HEIGHT - 50)
         self.balloon = Balloon(MAX_WIDTH / 2, 130)
         self.projectiles = []
@@ -18,6 +18,10 @@ class GameScreen(BaseScreen):
         self.start_time = pygame.time.get_ticks() // 1000
         self.speed_increase = 10
         self.balloon_speed = 1
+        if self.next_screen == 'game':
+            pygame.mixer.music.load('audio/level1.mp3')
+            pygame.mixer.music.play(-1)
+        
 
     def get_score(self):
         self.score = (pygame.time.get_ticks() // 1000) - self.start_time
@@ -27,13 +31,11 @@ class GameScreen(BaseScreen):
             self.balloon_speed += 1
             self.balloon.speed = self.balloon_speed
             self.speed_increase *= 2
-            print(self.balloon.speed)
-            print(self.speed_increase)
-        
+      
     def shoot(self):
         x_pos = self.balloon.rect.center[0]
         chance = random.randint(1, 100)
-        if chance % 30 == 0:
+        if chance % 15 == 0:
             projectile = Projectile(x_pos, 200, 'fireball')
             projectile.update(self.window)
             self.projectiles.append(projectile)
@@ -58,6 +60,9 @@ class GameScreen(BaseScreen):
             if p.rect.y > 600:
                 self.projectiles.remove(p)
             if p.rect.colliderect(self.player.rect) and p.projectile_type == 'fireball':
+                chance = random.randint(1, 2)
+                if chance == 1:
+                    pygame.mixer.Sound('audio/homer_doh.wav').play()
                 self.projectiles.remove(p)
                 self.player_health -= 1
                 self.health_text = self.test_font.render(f'Health: {self.player_health}', True, (0, 0, 0))
@@ -68,6 +73,9 @@ class GameScreen(BaseScreen):
                     self.next_screen = 'start'
                     self.running = False
             elif p.rect.colliderect(self.player.rect) and p.projectile_type == 'donut':
+                chance = random.randint(1, 2)
+                if chance == 1:
+                    pygame.mixer.Sound('audio/mmmdonuts.wav').play()
                 self.projectiles.remove(p)
                 self.player_health += 1
                 self.health_text = self.test_font.render(f'Health: {self.player_health}', True, (0, 0, 0))
