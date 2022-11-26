@@ -18,10 +18,6 @@ class GameScreen(BaseScreen):
         self.start_time = pygame.time.get_ticks() // 1000
         self.speed_increase = 10
         self.balloon_speed = 1
-        if self.next_screen == 'game':
-            pygame.mixer.music.load('audio/level1.mp3')
-            pygame.mixer.music.play(-1)
-        
 
     def get_score(self):
         self.score = (pygame.time.get_ticks() // 1000) - self.start_time
@@ -31,7 +27,7 @@ class GameScreen(BaseScreen):
             self.balloon_speed += 1
             self.balloon.speed = self.balloon_speed
             self.speed_increase *= 2
-      
+
     def shoot(self):
         x_pos = self.balloon.rect.center[0]
         chance = random.randint(1, 100)
@@ -69,9 +65,10 @@ class GameScreen(BaseScreen):
                 if self.player_health == 0:                 
                     self.start_time += pygame.time.get_ticks() // 1000
                     self.score = 0
-                    # change screen to start screen
-                    self.next_screen = 'start'
+                    # change the screen to the game over screen
+                    self.next_screen = 'game_over'
                     self.running = False
+                    
             elif p.rect.colliderect(self.player.rect) and p.projectile_type == 'donut':
                 chance = random.randint(1, 2)
                 if chance == 1:
