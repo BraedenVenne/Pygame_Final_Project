@@ -18,27 +18,19 @@ class StartScreen(BaseScreen):
         # get the rect of the buttons
         self.start_button_rect = self.start_button.get_rect(center=(200,400))
         self.quit_button_rect = self.quit_button.get_rect(center=(200,500))
-        
-        # self.button = TextBox(
-        #     (200, 100), "Press SPACE",
-        #       color=(255, 255, 255),
-        #         bgcolor=(0, 0, 0)
-        # )
-        # self.sprites.add(self.button)
+        pygame.mixer.music.load('audio/theme.mp3')
+        pygame.mixer.music.play(-1)
 
     def draw(self):
         self.window.fill((255, 255, 255))
 
-        # display and center the donut.png on the screen
+        # display and center the donut on the screen
         self.window.blit(self.donut, self.donut.get_rect(center=(200,200)))
 
-        # display the start and quit buttons on the center bottom of the screen
+        # display the start button and quit button
         self.window.blit(self.start_button, self.start_button_rect)
         self.window.blit(self.quit_button, self.quit_button_rect)
 
-        # self.button.rect.x = 100
-        # self.button.rect.y = 400
-        self.sprites.draw(self.window)
 
     def update(self):
         pass
