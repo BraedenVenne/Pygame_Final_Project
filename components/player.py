@@ -72,4 +72,3 @@ class Player(pygame.sprite.Sprite):
     def update(self, window):
         self.boundary()
         window.blit(pygame.transform.flip(self.homer, self.flip, False), self.rect)
-
