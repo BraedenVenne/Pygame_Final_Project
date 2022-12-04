@@ -1,7 +1,13 @@
 import pygame
 from .globals import MAX_WIDTH, MAX_HEIGHT
 
+
 class Player(pygame.sprite.Sprite):
+    """
+    This is the Player class. It handles
+    the player's movement and animation. It also
+    handles the player's jumping and gravity.
+    """
     def __init__(self, x, y):
         super().__init__()
         # walking animation images
@@ -19,7 +25,7 @@ class Player(pygame.sprite.Sprite):
 
     def movement(self):
         """
-        Handles the player's movement
+        This method handles the player's movement.
         """
         # distance variables
         x = 0
@@ -27,10 +33,10 @@ class Player(pygame.sprite.Sprite):
 
         keys = pygame.key.get_pressed()
         
-        if keys[pygame.K_a]:
+        if keys[pygame.K_a] or keys[pygame.K_LEFT]:
             x = -7
             self.flip = True
-        if keys[pygame.K_d]:
+        if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
             x = 7
             self.flip = False
         
@@ -46,7 +52,7 @@ class Player(pygame.sprite.Sprite):
                 self.vel_y = 20
         else:
             self.homer = pygame.image.load('images/homer/homer_stand.png').convert_alpha()
-            if keys[pygame.K_d] or keys[pygame.K_a]:
+            if keys[pygame.K_d] or keys[pygame.K_a] or keys[pygame.K_RIGHT] or keys[pygame.K_LEFT]:
                 self.homer_index += 0.2
                 if self.homer_index >= len(self.homer_walk):
                     self.homer_index = 0
@@ -63,6 +69,9 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += y
 
     def boundary(self):
+        """
+        This method handles the player's boundary.
+        """
     # set boundaries so player cant walk off screen
         if self.rect.left <= 0:
             self.rect.left = 0
@@ -70,5 +79,8 @@ class Player(pygame.sprite.Sprite):
             self.rect.right = MAX_WIDTH
         
     def update(self, window):
+        """
+        This method updates the player's movement and animation.
+        """
         self.boundary()
         window.blit(pygame.transform.flip(self.homer, self.flip, False), self.rect)
