@@ -2,15 +2,18 @@ import pygame
 
 class BaseScreen:
     """Base class for all game screens"""
-
     def __init__(self, window):
         # window surface
         self.window = window
         # By default, there is no next screen (= game quits)
         self.next_screen = False
+        self.test_font = pygame.font.Font('font/Pixeltype.ttf', 50)
+        self.test_font = pygame.font.Font('font/Pixeltype.ttf', 50)
+        # self.score = None
+        self.start_time = pygame.time.get_ticks() // 1000
 
     def run(self):
-
+        """This method will run the game loop"""
         clock = pygame.time.Clock()
         self.running = True
         while self.running:
