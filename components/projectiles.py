@@ -1,7 +1,5 @@
 import pygame
 
-from .globals import MAX_HEIGHT
-
 class Projectile(pygame.sprite.Sprite):
     def __init__(self, x: int, y: int, projectile_type: str):
         super().__init__()
@@ -12,9 +10,7 @@ class Projectile(pygame.sprite.Sprite):
         else:
             self.image = pygame.image.load('images/donut.png')
             self.image = pygame.transform.rotozoom(self.image,0,0.1)
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
+        self.rect = self.image.get_rect(center=(x,y))
  
     def update(self, window):
         self.rect.y += 5
