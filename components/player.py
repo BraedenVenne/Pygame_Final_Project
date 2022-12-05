@@ -4,9 +4,10 @@ from .globals import MAX_WIDTH, MAX_HEIGHT
 
 class Player(pygame.sprite.Sprite):
     """
-    This is the Player class. It handles
-    the player's movement and animation. It also
-    handles the player's jumping and gravity.
+    This class represents the player.
+
+    Args:
+        pygame (_type_): This is the pygame module.
     """
     def __init__(self, x, y):
         super().__init__()
@@ -33,13 +34,16 @@ class Player(pygame.sprite.Sprite):
 
         keys = pygame.key.get_pressed()
         
+        # move left
         if keys[pygame.K_a] or keys[pygame.K_LEFT]:
             x = -7
             self.flip = True
+        # move right
         if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
             x = 7
             self.flip = False
         
+        # jump
         if self.jump == False and keys[pygame.K_SPACE]:
             self.jump = True
             
@@ -51,6 +55,7 @@ class Player(pygame.sprite.Sprite):
                 self.jump = False
                 self.vel_y = 20
         else:
+            # walking animation
             self.homer = pygame.image.load('images/homer/homer_stand.png').convert_alpha()
             if keys[pygame.K_d] or keys[pygame.K_a] or keys[pygame.K_RIGHT] or keys[pygame.K_LEFT]:
                 self.homer_index += 0.2
@@ -72,7 +77,7 @@ class Player(pygame.sprite.Sprite):
         """
         This method handles the player's boundary.
         """
-    # set boundaries so player cant walk off screen
+    # boundaries that don't allow player to walk off screen
         if self.rect.left <= 0:
             self.rect.left = 0
         if self.rect.right >= MAX_WIDTH:
