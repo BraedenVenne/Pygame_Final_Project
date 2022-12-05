@@ -5,7 +5,10 @@ from components import Player, MAX_WIDTH, MAX_HEIGHT, Balloon, Projectile
 
 class GameScreen(BaseScreen):
     """
-    This is the main game loop. It will run until the user dies or quits the game.
+    This class represents the game screen
+
+    Args:
+        BaseScreen (_type_): This is the base screen class that all other screens will inherit from.
     """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -20,14 +23,10 @@ class GameScreen(BaseScreen):
         self.donut_count = 0
         self.final_score = 0
 
-
-    def get_score(self):
-        """
-        This method will get the score of the player and increase the speed of the balloon based on the score.
-        """
-        self.score = (pygame.time.get_ticks() // 1000) - self.start_time
-
     def balloon_speed_increase(self):
+        """
+        This method will increase the speed of the balloon as the game progresses.
+        """
         if self.score > self.speed_increase and self.score > 0 and self.balloon.speed > 0:
             self.balloon.speed -= 1
             self.balloon_speed += 1
@@ -89,6 +88,7 @@ class GameScreen(BaseScreen):
                 self.donut_count += 1
                 if self.donut_count == 2:
                     pygame.mixer.Sound('audio/mmmdonuts.wav').play()
+                    # if player has 2 donuts, then heal the player
                     self.player_health += 1
                     self.health_text = self.test_font.render(f'Health: {self.player_health}', True, (0, 0, 0))
                     self.donut_count = 0
@@ -99,14 +99,17 @@ class GameScreen(BaseScreen):
         """
         self.shoot_chance()
         self.shoot()
-        self.get_score()
+        self.score = (pygame.time.get_ticks() // 1000) - self.start_time
         self.balloon_speed_increase()
         self.player.movement()
         self.balloon.update()
         
     def manage_event(self, event):
         """
-        This function will handle the events for the game screen.
+        This method will handle the events for the game screen.
+
+        Args:
+            event (_type_): This is the event that is passed in from the main loop.
         """
         if event.type == pygame.QUIT:
             self.next_screen = False
