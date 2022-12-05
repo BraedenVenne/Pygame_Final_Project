@@ -5,6 +5,12 @@ import datetime
 import json
 
 class GameOver(BaseScreen):
+    """
+    This class represents the game over screen.
+
+    Args:
+        BaseScreen (_type_): This class inherits from the BaseScreen class.
+    """
     def __init__(self, window, score):
         super().__init__(window)
         # game over screen sound
@@ -44,6 +50,9 @@ class GameOver(BaseScreen):
         pass 
 
     def draw(self):
+        """
+        This method will draw the game over screen.
+        """
         game_over_background = pygame.image.load('images/game_over_bg.png')
 
         # score text
@@ -57,7 +66,7 @@ class GameOver(BaseScreen):
         game_over_text = pygame.image.load('images/game_over.png')
         game_over_text = pygame.transform.rotozoom(game_over_text, 0, 0.75)
 
-        # put the gama over text in the middle of the screen
+        # put the game over text in the middle of the screen
         game_over_text_rect = game_over_text.get_rect(center=(200,250))
 
         # set the buttons side by side near the bottom of the screen
@@ -74,16 +83,17 @@ class GameOver(BaseScreen):
         # display the score text
         self.window.blit(score_text, score_text_rect)
 
-        # draw a textbox for the user to enter a username and display it in the middle of the screen
+        # textbox for the user to enter a username
         pygame.draw.rect(self.window, (255,255,255), self.username_textbox)
         username_text = self.test_font.render(self.username, True, (0,0,0))
         username_text_rect = username_text.get_rect(center=(175,325))
         self.window.blit(username_text, username_text_rect)
 
-        # draw a save button and display it next to the textbox
+        # save button
         pygame.draw.rect(self.window, (0,0,0), self.save_button)
         self.window.blit(self.save_text, self.save_text_rect)
 
+        # display a message if the score has been uploaded
         if self.display_message:
             uploaded_text = self.test_font.render("Score uploaded!", True, (255,255,0))
             uploaded_text = pygame.transform.rotozoom(uploaded_text, 0, 1.5)
@@ -92,16 +102,22 @@ class GameOver(BaseScreen):
         
 
     def upload_score(self):
+        """
+        This method will upload the score to the scores.json file.
+        """
         # upload the username and score to the database
                 # if the username is empty self.username will be "Unknown"
         if self.username == "":
             self.username = "Unknown"
         # get the current date and time
         now = datetime.datetime.now()
+
         # format the date and time
         date = now.strftime("%Y-%m-%d %H:%M:%S")
+
         # add the username, score, and date to the database
         self.scores.append({"username": self.username, "score": self.final_score, "date": date})
+
         # sort the scores by the highest score
         self.scores = sorted(self.scores, key=lambda k: k['score'], reverse=True)
         # save the scores to the database
@@ -109,6 +125,12 @@ class GameOver(BaseScreen):
             json.dump(self.scores, f, indent=4)
             
     def manage_event(self, event):
+        """
+        This method will manage the events for the game over screen.
+
+        Args:
+            event (_type_): This is the event that is passed in.
+        """
         # when start button is clicked move to game screen
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.start_button_rect.collidepoint(event.pos):
@@ -140,24 +162,12 @@ class GameOver(BaseScreen):
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.save_button.collidepoint(event.pos):
                 self.upload_score()
+                
                 # remove the username textbox and save button after the score is uploaded
                 self.username_textbox = pygame.Rect(0,0,0,0)
                 self.save_button = pygame.Rect(0,0,0,0)
                 self.username = ""
                 self.save_text_rect = self.save_text.get_rect(center=(0,0))
+
                 # add a message saying the score was uploaded
                 self.display_message = True
-                
-
-
-
-
-
-
-
-
-
-
-
-
-
