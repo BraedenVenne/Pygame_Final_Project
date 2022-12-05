@@ -3,25 +3,37 @@ from screens import BaseScreen
 from sys import exit
 
 class StartScreen(BaseScreen):
+    """
+    This class represents the start screen.
+
+    Args:
+        BaseScreen (_type_): This class inherits from the BaseScreen class.
+    """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.sprites = pygame.sprite.Group()
+        
         # menu buttons 
         self.start_button = pygame.image.load('images/buttons/start_button.png')
         self.quit_button = pygame.image.load('images/buttons/quit_button.png')
+
         # scale the buttons
         self.start_button = pygame.transform.rotozoom(self.start_button, 0, 0.5)
         self.quit_button = pygame.transform.rotozoom(self.quit_button, 0, 0.5)
+
         # get the rect of the buttons
         self.start_button_rect = self.start_button.get_rect(center=(100,500))
         self.quit_button_rect = self.quit_button.get_rect(center=(300,500))
+
         # play the bg music
         bg_music = pygame.mixer.Sound('audio/theme.wav')
         bg_music.play(-1)
         self.final_score = None
         
-
     def draw(self):
+        """
+        This method will draw the start screen.
+        """
         game_name = pygame.image.load('images/game_name.png')
         game_name = pygame.transform.rotozoom(game_name, 0, 0.75)
         game_name_rect = game_name.get_rect(center=(200,100))
@@ -37,6 +49,12 @@ class StartScreen(BaseScreen):
         pass
 
     def manage_event(self, event):
+        """
+        This method will manage the events on the start screen.
+
+        Args:
+            event (_type_): This is the event that is passed in.
+        """
         # when start button is clicked move to game screen
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.start_button_rect.collidepoint(event.pos):
