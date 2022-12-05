@@ -1,5 +1,5 @@
 import pygame
-from  screens import StartScreen, GameScreen, GameOver, LoginScreen
+from  screens import StartScreen, GameScreen, GameOver
 from components import MAX_WIDTH, MAX_HEIGHT
 
 class Game:
@@ -13,7 +13,6 @@ class Game:
 
         # These are the available screens
         screens = {
-            "login": LoginScreen,
             "start": StartScreen,
             "game": GameScreen,
             "game_over": GameOver,
@@ -29,15 +28,15 @@ class Game:
             if not screen_class:
                 raise RuntimeError(f"Screen {current_screen} not found!")
 
-            # Create a new screen object, "connected" to the window
+            # pass final score to game over screen
             if current_screen == "game_over":
                 screen = screen_class(self.window, final_score)
             else:
                 screen = screen_class(self.window)
 
-                
             # Run the screen
-            screen.run()
+            screen.run()    
+
             # When the `run` method stops, we should have a `next_screen` setup
             if screen.next_screen is False:
                 running = False
